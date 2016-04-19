@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>login</title>
+	<title>login page</title>
 </head>
 <body>
-  <h1>Login</h1>
+  <h3>Login</h3>
   <form action="/login" method="POST">
     <p>Username: <input type="text" name="username"></p>
     <p>Password: <input type="password" name="password"></p>
-    <input type="submit" value="Login">
+    <input type="submit" value="login">
+  </form>
+  <h3>Create Account</h3>
+  <form action="/signup" method="POST">
+    <p>Username: <input type="text" name="username"></p>
+    <p>Password: <input type="password" name="password"></p>
+    <input type="submit" value="create account">
   </form>
 </body>
 </html>
