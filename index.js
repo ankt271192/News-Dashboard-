@@ -26,7 +26,18 @@ app.get('/login',function(req,res) {
 app.post('/login',function(req,res) {
     var username = req.body.username;
     var password = req.body.password;
-    res.send('Username: '+username+' Password: '+password);
+    var getpass;
+    client.get(username,function(err, reply) {
+        // reply is null when the key is missing 
+        console.log(reply);
+        getpass = reply;
+    });
+    if (getpass && password === getpass) {
+        res.send('You are logged in with Username: '+username+' Password: '+password);
+    }
+    else {
+        res.send('Invalid Username/Password');
+    }
 });
 
 app.post('/signup',function(req,res) {
