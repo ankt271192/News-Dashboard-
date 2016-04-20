@@ -2,10 +2,54 @@
 <html>
 <head>
 	<title>index</title>
+  <script type="text/javascript">
+    function request(method, url, body, type, callback){
+      var req = new XMLHttpRequest();
+      req.open(method, url);
+      if (type) {
+        req.setRequestHeader("Content-Type", type);
+      }
+      req.addEventListener("load", function() {
+        if (req.status == 200) {
+          if (req.getResponseHeader("Content-Type").match(/application\/json/)) {
+            callback(null, JSON.parse(req.responseText));
+          } else {
+            callback(null, req.responseText);
+          }
+        } else {
+          callback(req);
+        }
+      });
+      req.send(body);
+    }
+    function start(){
+      var span = document.querySelector("span");
+      var container = document.querySelector("#container");
+      span.textContent = document.cookie.details.username || 'You are not logged in'
+      request("GET","/posts",null,null,function(err,res) {
+        if (err) {
+          alert("Connection Error");
+        } else {
+          if (res.error) {
+            alert(res.message);
+          } else {
+            container.textContent = res;
+          }
+        }
+      });
+    }
+    document.addEventListener("DOMContentLoaded", function(){
+      start();
+    });
+  </script>
 </head>
 <body>
-	<p>This is index.html</p>
-  <a href="/login.html">Login</a>
-  <a href="/submit.html">Submit</a>
+  <div>
+    <span></span>
+    <a href="/login.html">Login</a>
+    <a href="/submit.html">Submit</a>
+    <a href="/logout">Logout</a>
+  </div>
+  <div id="container"></div>
 </body>
 </html>
