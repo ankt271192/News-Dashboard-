@@ -92,7 +92,7 @@ app.post('/create',function(req,res) {
     var username = req.body.username;
     var password = req.body.password;
     client.set(username, password, redis.print);
-    res.redirect('/login.html');
+    res.send('Account created.<a href="/login.html">Login</a>');
 });
 
 app.post('/submit',function(req,res) {
